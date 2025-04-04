@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import GameMode from './GameMode';
 import DifficultySelector from './DifficultySelector';
 import Cell from './Cell';
+import Scoreboard from './Scoreboard';
 
 const Gameboard = () => {
 	const [board, setBoard] = useState(Array(9).fill(null));
@@ -231,6 +232,9 @@ const Gameboard = () => {
 						<h2>Welcome, {playerName}</h2>
 					</div>
 
+					<div style={{ maxWidth: '600px', margin: '0 auto', padding: '1rem' }}>
+						<Scoreboard mode={mode} playerName={playerName} winner={winner} />
+					</div>
 					{/* Gameboard */}
 					<div
 						className='game-board'
