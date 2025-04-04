@@ -233,7 +233,7 @@ const Gameboard = () => {
 					</div>
 
 					<div style={{ maxWidth: '600px', margin: '0 auto', padding: '1rem' }}>
-						<Scoreboard mode={mode} playerName={playerName} winner={winner} />
+						<ScoreBoard mode={mode} playerName={playerName} winner={winner} />
 					</div>
 					{/* Gameboard */}
 					<div
