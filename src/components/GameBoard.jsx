@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import GameMode from './GameMode';
 import DifficultySelector from './DifficultySelector';
 import Cell from './Cell';
-import Scoreboard from './Scoreboard';
+import ScoreBoard from './ScoreBoard';
 
 const Gameboard = () => {
 	const [board, setBoard] = useState(Array(9).fill(null));
