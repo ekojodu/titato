@@ -66,34 +66,33 @@ const Scoreboard = ({ mode, playerName, winner }) => {
 
 const styles = {
 	container: {
-		background: '#f1f1f1',
+		background: '#000080', // Blue background for the tile
 		padding: '16px',
 		borderRadius: '12px',
-		marginTop: '20px',
 		boxShadow: '0 0 10px rgba(0,0,0,0.1)',
-		maxWidth: '100%',
-		width: '100%',
-		boxSizing: 'border-box',
+		width: 'auto',
+		maxWidth: '300px', // Make the width compact
+		margin: '0 auto', // Center align the scoreboard
+		textAlign: 'center', // Center the text
 	},
 	heading: {
-		textAlign: 'center',
 		fontSize: '18px',
+		color: '#fff',
 		marginBottom: '10px',
 	},
 	row: {
 		display: 'flex',
 		justifyContent: 'space-between',
-		flexWrap: 'wrap',
-		gap: '12px',
+		gap: '8px', // Small gap between the boxes
 	},
 	scoreBox: {
 		background: '#fff',
 		padding: '10px',
 		borderRadius: '8px',
 		textAlign: 'center',
-		flex: '1 1 30%',
-		boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
-		minWidth: '100px',
+		flex: '1', // Allow the boxes to grow/shrink equally
+		boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+		minWidth: '80px', // Minimum width for each box
 	},
 	label: {
 		fontWeight: 'bold',
@@ -102,12 +101,12 @@ const styles = {
 	},
 	value: {
 		fontSize: '20px',
-		margin: '4px 0 0 0',
+		marginTop: '4px',
 		color: '#007BFF',
 	},
 	button: {
 		marginTop: '12px',
-		padding: '10px 16px',
+		padding: '10px',
 		border: 'none',
 		borderRadius: '8px',
 		background: '#ff4d4f',
