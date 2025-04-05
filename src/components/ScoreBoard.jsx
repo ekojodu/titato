@@ -67,8 +67,6 @@ const Scoreboard = ({ mode, playerName, winner }) => {
 const styles = {
 	container: {
 		padding: '16px',
-		borderRadius: '12px',
-		boxShadow: '0 0 10px rgba(0,0,0,0.1)',
 		width: 'auto',
 		maxWidth: '300px', // Make the width compact
 		margin: '0 auto', // Center align the scoreboard
