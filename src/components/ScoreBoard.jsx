@@ -42,7 +42,7 @@ const Scoreboard = ({ mode, playerName, winner }) => {
 
 	return (
 		<div style={styles.container}>
-			<h3 style={styles.heading}>📊 Scoreboard</h3>
+			<h3 style={styles.heading}>Scoreboard</h3>
 			<div style={styles.row}>
 				<div style={styles.scoreBox}>
 					<p style={styles.label}>Player 1</p>
@@ -66,7 +66,6 @@ const Scoreboard = ({ mode, playerName, winner }) => {
 
 const styles = {
 	container: {
-		background: '#000080', // Blue background for the tile
 		padding: '16px',
 		borderRadius: '12px',
 		boxShadow: '0 0 10px rgba(0,0,0,0.1)',
