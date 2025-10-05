@@ -32,7 +32,7 @@ const Scoreboard = ({ mode, playerName, winner }) => {
 			localStorage.setItem('tictactoe-scores', JSON.stringify(updated));
 			return updated;
 		});
-	}, [winner]);
+	}, [winner, mode]);
 
 	const resetScoreboard = () => {
 		const cleared = { player1: 0, draw: 0, player2: 0 };
@@ -45,7 +45,8 @@ const Scoreboard = ({ mode, playerName, winner }) => {
 			<h3 style={styles.heading}>Scoreboard</h3>
 			<div style={styles.row}>
 				<div style={styles.scoreBox}>
-					<p style={styles.label}>Player 1</p>
+					{/* ✅ Use playerName dynamically */}
+					<p style={styles.label}>{playerName || 'Player 1'}</p>
 					<p style={styles.value}>{scores.player1}</p>
 				</div>
 				<div style={styles.scoreBox}>
@@ -53,7 +54,10 @@ const Scoreboard = ({ mode, playerName, winner }) => {
 					<p style={styles.value}>{scores.draw}</p>
 				</div>
 				<div style={styles.scoreBox}>
-					<p style={styles.label}>{mode === 'CPU' ? 'CPU' : 'Player 2'}</p>
+					{/* ✅ Show CPU or Player 2 name accordingly */}
+					<p style={styles.label}>
+						{mode === 'CPU' ? 'CPU' : 'Player 2'}
+					</p>
 					<p style={styles.value}>{scores.player2}</p>
 				</div>
 			</div>
@@ -68,9 +72,9 @@ const styles = {
 	container: {
 		padding: '16px',
 		width: 'auto',
-		maxWidth: '300px', // Make the width compact
-		margin: '0 auto', // Center align the scoreboard
-		textAlign: 'center', // Center the text
+		maxWidth: '300px',
+		margin: '0 auto',
+		textAlign: 'center',
 	},
 	heading: {
 		fontSize: '18px',
@@ -80,16 +84,16 @@ const styles = {
 	row: {
 		display: 'flex',
 		justifyContent: 'space-between',
-		gap: '8px', // Small gap between the boxes
+		gap: '8px',
 	},
 	scoreBox: {
 		background: '#fff',
 		padding: '10px',
 		borderRadius: '8px',
 		textAlign: 'center',
-		flex: '1', // Allow the boxes to grow/shrink equally
+		flex: '1',
 		boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-		minWidth: '80px', // Minimum width for each box
+		minWidth: '80px',
 	},
 	label: {
 		fontWeight: 'bold',
