@@ -92,7 +92,14 @@ const Gameboard = () => {
 						<h2 style={styles.welcome}>Welcome, {playerName}</h2>
 
 						<div style={styles.scoreWrapper}>
-							<ScoreBoard mode={mode} playerName={playerName} winner={winner} />
+							<Scoreboard
+  mode={mode}
+  playerName={playerName}
+  winner={winner}
+  difficulty={difficulty}
+  setDifficulty={setDifficulty}
+/>
+
 						</div>
 
 						<div style={styles.board}>
