@@ -3,7 +3,7 @@ import GameMode from './GameMode';
 import DifficultySelector from './DifficultySelector';
 import Cell from './Cell';
 import ScoreBoard from './ScoreBoard';
-import { checkWinner, getCpuMove } from './cpuLogic'; // ✅ import AI logic
+import { checkWinner, getCpuMove } from './cpuLogic';
 
 const Gameboard = () => {
 	const [board, setBoard] = useState(Array(9).fill(null));
@@ -65,16 +65,15 @@ const Gameboard = () => {
 	};
 
 	return (
-		<div>
-			<h1>Tic Tac Toe</h1>
-
+		<div style={styles.container}>
 			{!isNameEntered ? (
-				<div>
+				<div style={styles.startScreen}>
 					<input
 						type="text"
 						value={playerName}
 						onChange={(e) => setPlayerName(e.target.value)}
 						placeholder="Enter your name"
+						style={styles.input}
 					/>
 					<GameMode mode={mode} setMode={setMode} />
 					{mode === 'CPU' && (
@@ -83,25 +82,19 @@ const Gameboard = () => {
 							setDifficulty={setDifficulty}
 						/>
 					)}
-					<button onClick={handleNameSubmit}>Start Game</button>
+					<button style={styles.startButton} onClick={handleNameSubmit}>
+						Start Game
+					</button>
 				</div>
 			) : (
 				<>
-					<h2>Welcome, {playerName}</h2>
+					<h2 style={styles.welcome}>Welcome, {playerName}</h2>
 
-					<div style={{ maxWidth: '600px', margin: '0 auto' }}>
+					<div style={styles.scoreWrapper}>
 						<ScoreBoard mode={mode} playerName={playerName} winner={winner} />
 					</div>
 
-					<div
-						className="game-board"
-						style={{
-							display: 'grid',
-							gridTemplateColumns: 'repeat(3, 100px)',
-							gap: '4px',
-							margin: '1rem auto',
-						}}
-					>
+					<div style={styles.board}>
 						{board.map((value, index) => (
 							<Cell
 								key={index}
@@ -112,17 +105,19 @@ const Gameboard = () => {
 					</div>
 
 					{winner && (
-						<h2>
+						<h3 style={styles.message}>
 							{winner === 'Draw'
 								? "It's a draw!"
 								: winner === 'O'
-								? 'CPU wins!'
+								? mode === 'CPU'
+									? 'CPU wins!'
+									: 'Player 2 wins!'
 								: `${playerName} wins!`}
-						</h2>
+						</h3>
 					)}
 
 					{!winner && (
-						<h3>
+						<h3 style={styles.message}>
 							{mode === 'CPU'
 								? currentPlayer === 'Player 1'
 									? `${playerName}'s Turn (X)`
@@ -133,11 +128,80 @@ const Gameboard = () => {
 						</h3>
 					)}
 
-					<button onClick={resetGame}>Restart Game</button>
+					<button style={styles.restartButton} onClick={resetGame}>
+						Restart Game
+					</button>
 				</>
 			)}
 		</div>
 	);
+};
+
+const styles = {
+	container: {
+		minHeight: '100vh',
+		backgroundColor: '#0d0d0d',
+		color: '#f0f0f0',
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+		justifyContent: 'center',
+		padding: '1rem',
+		overflow: 'hidden',
+	},
+	startScreen: {
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+		gap: '10px',
+	},
+	input: {
+		padding: '10px',
+		borderRadius: '6px',
+		border: 'none',
+		outline: 'none',
+		width: '200px',
+		textAlign: 'center',
+		fontSize: '16px',
+	},
+	startButton: {
+		padding: '10px 20px',
+		backgroundColor: '#007bff',
+		border: 'none',
+		borderRadius: '8px',
+		color: '#fff',
+		fontSize: '16px',
+		cursor: 'pointer',
+		marginTop: '10px',
+	},
+	board: {
+		display: 'grid',
+		gridTemplateColumns: 'repeat(3, 100px)',
+		gap: '5px',
+		margin: '1rem 0',
+	},
+	welcome: {
+		marginBottom: '10px',
+		fontSize: '18px',
+	},
+	message: {
+		fontSize: '16px',
+		marginTop: '8px',
+		textAlign: 'center',
+	},
+	scoreWrapper: {
+		marginBottom: '10px',
+	},
+	restartButton: {
+		marginTop: '8px',
+		padding: '10px 20px',
+		borderRadius: '8px',
+		border: 'none',
+		backgroundColor: '#ff4d4f',
+		color: '#fff',
+		fontSize: '16px',
+		cursor: 'pointer',
+	},
 };
 
 export default Gameboard;
