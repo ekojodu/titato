@@ -65,89 +65,101 @@ const Gameboard = () => {
 	};
 
 	return (
-		<div style={styles.container}>
-			{!isNameEntered ? (
-				<div style={styles.startScreen}>
-					<input
-						type="text"
-						value={playerName}
-						onChange={(e) => setPlayerName(e.target.value)}
-						placeholder="Enter your name"
-						style={styles.input}
-					/>
-					<GameMode mode={mode} setMode={setMode} />
-					{mode === 'CPU' && (
-						<DifficultySelector
-							difficulty={difficulty}
-							setDifficulty={setDifficulty}
+		<div style={styles.outerWrapper}>
+			<div style={styles.container}>
+				{!isNameEntered ? (
+					<div style={styles.startScreen}>
+						<input
+							type="text"
+							value={playerName}
+							onChange={(e) => setPlayerName(e.target.value)}
+							placeholder="Enter your name"
+							style={styles.input}
 						/>
-					)}
-					<button style={styles.startButton} onClick={handleNameSubmit}>
-						Start Game
-					</button>
-				</div>
-			) : (
-				<>
-					<h2 style={styles.welcome}>Welcome, {playerName}</h2>
-
-					<div style={styles.scoreWrapper}>
-						<ScoreBoard mode={mode} playerName={playerName} winner={winner} />
-					</div>
-
-					<div style={styles.board}>
-						{board.map((value, index) => (
-							<Cell
-								key={index}
-								value={value}
-								onClick={() => handleClick(index)}
+						<GameMode mode={mode} setMode={setMode} />
+						{mode === 'CPU' && (
+							<DifficultySelector
+								difficulty={difficulty}
+								setDifficulty={setDifficulty}
 							/>
-						))}
+						)}
+						<button style={styles.startButton} onClick={handleNameSubmit}>
+							Start Game
+						</button>
 					</div>
+				) : (
+					<>
+						<h2 style={styles.welcome}>Welcome, {playerName}</h2>
 
-					{winner && (
-						<h3 style={styles.message}>
-							{winner === 'Draw'
-								? "It's a draw!"
-								: winner === 'O'
-								? mode === 'CPU'
-									? 'CPU wins!'
-									: 'Player 2 wins!'
-								: `${playerName} wins!`}
-						</h3>
-					)}
+						<div style={styles.scoreWrapper}>
+							<ScoreBoard mode={mode} playerName={playerName} winner={winner} />
+						</div>
 
-					{!winner && (
-						<h3 style={styles.message}>
-							{mode === 'CPU'
-								? currentPlayer === 'Player 1'
+						<div style={styles.board}>
+							{board.map((value, index) => (
+								<Cell
+									key={index}
+									value={value}
+									onClick={() => handleClick(index)}
+								/>
+							))}
+						</div>
+
+						{winner && (
+							<h3 style={styles.message}>
+								{winner === 'Draw'
+									? "It's a draw!"
+									: winner === 'O'
+									? mode === 'CPU'
+										? 'CPU wins!'
+										: 'Player 2 wins!'
+									: `${playerName} wins!`}
+							</h3>
+						)}
+
+						{!winner && (
+							<h3 style={styles.message}>
+								{mode === 'CPU'
+									? currentPlayer === 'Player 1'
+										? `${playerName}'s Turn (X)`
+										: `CPU's Turn (O)`
+									: currentPlayer === 'Player 1'
 									? `${playerName}'s Turn (X)`
-									: `CPU's Turn (O)`
-								: currentPlayer === 'Player 1'
-								? `${playerName}'s Turn (X)`
-								: `Player 2's Turn (O)`}
-						</h3>
-					)}
+									: `Player 2's Turn (O)`}
+							</h3>
+						)}
 
-					<button style={styles.restartButton} onClick={resetGame}>
-						Restart Game
-					</button>
-				</>
-			)}
+						<button style={styles.restartButton} onClick={resetGame}>
+							Restart Game
+						</button>
+					</>
+				)}
+			</div>
 		</div>
 	);
 };
 
 const styles = {
-	container: {
+	outerWrapper: {
 		minHeight: '100vh',
-		backgroundColor: '#0d0d0d',
+		width: '100vw',
+		backgroundColor: '#0d0d0d', // oil black
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		overflow: 'hidden',
+		margin: 0,
+		padding: 0,
+	},
+	container: {
 		color: '#f0f0f0',
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
 		justifyContent: 'center',
-		padding: '1rem',
-		overflow: 'hidden',
+		textAlign: 'center',
+		width: '100%',
+		maxWidth: '400px',
 	},
 	startScreen: {
 		display: 'flex',
