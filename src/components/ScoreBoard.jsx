@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
+import DifficultySelector from './DifficultySelector'; // ✅ make sure this file exists
 
-const Scoreboard = ({ mode, playerName, winner }) => {
+const Scoreboard = ({ mode, playerName, winner, difficulty, setDifficulty }) => {
 	const [scores, setScores] = useState(() => {
 		const saved = localStorage.getItem('tictactoe-scores');
 		return saved
@@ -8,9 +9,11 @@ const Scoreboard = ({ mode, playerName, winner }) => {
 			: {
 					player1: 0,
 					draw: 0,
-					player2: 0, // for Player 2 or CPU
+					player2: 0,
 			  };
 	});
+
+	const [showPopup, setShowPopup] = useState(false);
 
 	useEffect(() => {
 		if (!winner || winner === 'reset') return;
@@ -45,7 +48,6 @@ const Scoreboard = ({ mode, playerName, winner }) => {
 			<h3 style={styles.heading}>Scoreboard</h3>
 			<div style={styles.row}>
 				<div style={styles.scoreBox}>
-					{/* ✅ Use playerName dynamically */}
 					<p style={styles.label}>{playerName || 'Player 1'}</p>
 					<p style={styles.value}>{scores.player1}</p>
 				</div>
@@ -54,16 +56,39 @@ const Scoreboard = ({ mode, playerName, winner }) => {
 					<p style={styles.value}>{scores.draw}</p>
 				</div>
 				<div style={styles.scoreBox}>
-					{/* ✅ Show CPU or Player 2 name accordingly */}
-					<p style={styles.label}>
-						{mode === 'CPU' ? 'CPU' : 'Player 2'}
-					</p>
+					<p style={styles.label}>{mode === 'CPU' ? 'CPU' : 'Player 2'}</p>
 					<p style={styles.value}>{scores.player2}</p>
 				</div>
 			</div>
-			<button style={styles.button} onClick={resetScoreboard}>
-				Reset Scoreboard
-			</button>
+
+			{/* ✅ Two buttons side-by-side */}
+			<div style={styles.buttonRow}>
+				<button style={styles.resetButton} onClick={resetScoreboard}>
+					Reset Scoreboard
+				</button>
+				<button style={styles.diffButton} onClick={() => setShowPopup(true)}>
+					Change Difficulty
+				</button>
+			</div>
+
+			{/* ✅ Popup for Difficulty Selection */}
+			{showPopup && (
+				<div style={styles.popupOverlay}>
+					<div style={styles.popupContent}>
+						<h3 style={{ color: '#fff', marginBottom: '10px' }}>Select Difficulty</h3>
+						<DifficultySelector
+							difficulty={difficulty}
+							setDifficulty={(level) => {
+								setDifficulty(level);
+								setShowPopup(false);
+							}}
+						/>
+						<button style={styles.closeBtn} onClick={() => setShowPopup(false)}>
+							Close
+						</button>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 };
@@ -105,16 +130,60 @@ const styles = {
 		marginTop: '4px',
 		color: '#007BFF',
 	},
-	button: {
+	buttonRow: {
+		display: 'flex',
+		gap: '10px',
 		marginTop: '12px',
+	},
+	resetButton: {
+		flex: 1,
 		padding: '10px',
 		border: 'none',
 		borderRadius: '8px',
 		background: '#ff4d4f',
 		color: '#fff',
 		cursor: 'pointer',
-		width: '100%',
 		fontSize: '16px',
+	},
+	diffButton: {
+		flex: 1,
+		padding: '10px',
+		border: 'none',
+		borderRadius: '8px',
+		background: 'green',
+		color: '#fff',
+		cursor: 'pointer',
+		fontSize: '16px',
+	},
+	popupOverlay: {
+		position: 'fixed',
+		top: 0,
+		left: 0,
+		width: '100%',
+		height: '100%',
+		backgroundColor: 'rgba(0,0,0,0.7)',
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+		zIndex: 1000,
+	},
+	popupContent: {
+		backgroundColor: '#222',
+		padding: '20px',
+		borderRadius: '10px',
+		textAlign: 'center',
+		width: '80%',
+		maxWidth: '300px',
+		boxShadow: '0 0 10px rgba(0,0,0,0.5)',
+	},
+	closeBtn: {
+		marginTop: '10px',
+		padding: '8px 12px',
+		background: '#444',
+		color: '#fff',
+		border: 'none',
+		borderRadius: '6px',
+		cursor: 'pointer',
 	},
 };
 
